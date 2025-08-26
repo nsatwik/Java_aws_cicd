@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo "Installing Maven..."
+      - yum install -y maven
+  build:
+    commands:
+      - echo "Building the WAR file..."
+      - mvn clean package
+  post_build:
+    commands:
+      - echo "Zipping artifact for CodeDeploy..."
+      - zip -r MyJavaApp.zip target/app.war appspec.yml scripts/
+
+artifacts:
+  files:
+    - MyJavaApp.zip
+  discard-paths: yes
