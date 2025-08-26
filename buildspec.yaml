@@ -8,8 +8,9 @@ phases:
       - yum install -y wget unzip -y
       - wget https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.zip
       - unzip apache-maven-3.9.5-bin.zip
-      - export M2_HOME="$PWD/apache-maven-3.9.5"
-      - export PATH="$M2_HOME/bin:$PATH"
+      - echo "Setting Maven environment variables"
+      - 'export M2_HOME="$PWD/apache-maven-3.9.5"'
+      - 'export PATH="$M2_HOME/bin:$PATH"'
       - echo "Maven version:"
       - mvn -v
   pre_build:
@@ -30,7 +31,7 @@ phases:
       - cp appspec.yml deploy/
       - cp -r scripts deploy/
       - cd deploy
-      - "zip -r MyJavaApp.zip ."
+      - 'zip -r MyJavaApp.zip .'
       - echo "Artifact ready: MyJavaApp.zip"
 
 artifacts:
