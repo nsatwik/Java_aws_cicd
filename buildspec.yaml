@@ -2,14 +2,18 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto11
     commands:
-      - echo "Installing Maven..."
-      - yum install -y maven
+      - echo "Installing latest Maven..."
+      - yum remove -y maven
+      - yum install -y wget unzip
+      - wget https://archive.apache.org/dist/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.zip
+      - unzip apache-maven-3.9.5-bin.zip
+      - export M2_HOME=$PWD/apache-maven-3.9.5
+      - export PATH=$M2_HOME/bin:$PATH
+      - mvn -v
   build:
     commands:
-      - echo "Building the WAR file..."
+      - echo "Building WAR..."
       - mvn clean package
   post_build:
     commands:
