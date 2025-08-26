@@ -21,6 +21,8 @@ phases:
       - mvn package
   post_build:
     commands:
+      - echo "Setting executable permissions on scripts..."
+      - chmod +x scripts/*.sh
       - echo "Preparing deployment artifact..."
       - mkdir -p deploy
       - cp target/app.war deploy/
