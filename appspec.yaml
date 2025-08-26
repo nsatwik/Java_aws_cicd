@@ -1,11 +1,9 @@
 version: 0.0
 os: linux
-
 files:
-  - source: target/app.war
+  - source: /
     destination: /opt/tomcat/webapps/
     overwrite: yes
-
 permissions:
   - object: /opt/tomcat/webapps/app.war
     owner: tomcat
@@ -14,8 +12,10 @@ permissions:
 
 hooks:
   BeforeInstall:
-    - location: /root/scripts/install_codedeploy_agent.sh
+    - location: scripts/install_codedeploy_agent.sh
+      runas: root
+    - location: scripts/install.sh
       runas: root
   AfterInstall:
-    - location: /root/scripts/server.sh
+    - location: scripts/server.sh
       runas: root
