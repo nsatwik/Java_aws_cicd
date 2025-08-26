@@ -11,16 +11,26 @@ phases:
       - export M2_HOME=$PWD/apache-maven-3.9.5
       - export PATH=$M2_HOME/bin:$PATH
       - mvn -v
+  pre_build:
+    commands:
+      - echo "Cleaning old builds..."
+      - mvn clean
   build:
     commands:
       - echo "Building WAR..."
-      - mvn clean package
+      - mvn package
   post_build:
     commands:
-      - echo "Zipping artifact for CodeDeploy..."
-      - zip -r MyJavaApp.zip target/app.war appspec.yml scripts/
+      - echo "Preparing deployment artifact..."
+      - mkdir -p deploy
+      - cp target/app.war deploy/
+      - cp appspec.yml deploy/
+      - cp -r scripts deploy/
+      - cd deploy
+      - zip -r MyJavaApp.zip *
+      - echo "Artifact ready: MyJavaApp.zip"
 
 artifacts:
   files:
-    - MyJavaApp.zip
+    - deploy/MyJavaApp.zip
   discard-paths: yes
