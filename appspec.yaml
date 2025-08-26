@@ -14,8 +14,8 @@ permissions:
 
 hooks:
   BeforeInstall:
-    - location: scripts/install.sh
+    - location: /root/scripts/install_codedeploy_agent.sh
       runas: root
   AfterInstall:
-    - location: scripts/server.sh
+    - location: /root/scripts/server.sh
       runas: root
