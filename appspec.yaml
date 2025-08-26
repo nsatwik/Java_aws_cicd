@@ -1,9 +1,11 @@
 version: 0.0
 os: linux
+
 files:
-  - source: /
+  - source: target/app.war
     destination: /opt/tomcat/webapps/
     overwrite: yes
+
 permissions:
   - object: /opt/tomcat/webapps/app.war
     owner: tomcat
